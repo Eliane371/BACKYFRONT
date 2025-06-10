@@ -1,0 +1,148 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+*{
+    box-sizing: border-box;
+}
+body {
+    margin: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+header{
+    padding: 10px;
+    background-image: url("images/fondo.webp");
+    background-position-y: center;    
+}
+footer{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    padding: 20px 30px;
+}
+.marca{
+    display: flex;
+    flex-direction: row;
+}
+.nombre{
+    align-self: anchor-center;
+    margin-left: 15px;
+}
+.menu-lista{
+    display: flex;
+    width: 600px;
+    justify-content: space-around;
+    justify-self: end;
+}
+.menu-boton{
+    width: 120px;
+    height: 40px;
+    border: none;
+    background-color: cadetblue;
+}
+.menu-boton:hover{
+    background-color: rgb(165, 42, 42);
+    color:white;
+}
+.promos{
+    display: flex;
+    flex-direction: column;
+}
+.productos{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    
+}
+.producto{
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: cadetblue;
+    padding: 10px;
+}
+.precio{
+    font-weight: 800;
+}
+.ordenar{
+    background-color: brown;
+    color:white;
+    border: 0;
+    width: 100%;
+    height: 35px;
+}
+h1{
+    color:rgb(191, 192, 201);
+}
+
+.red{
+    color: red;
+}
+ul{
+    list-style: none;
+}
+#first{
+    color:chartreuse;
+}
+
+.social-media{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+.social-item{
+    width: 24px;
+    margin-right: 15px;
+}
+.social-logo{
+    width: 24px;
+}
+
+.footer-column{
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+@media screen and (max-width:768px) {
+    .producto{
+        margin-bottom: 15px;
+    }
+}
+
+
+@media screen and (max-width:375px) {
+
+    .nombre{
+        font-size: 22px;
+    }
+    .menu-lista{
+        width: 100%;
+    }
+    .menu-boton{
+        width: 70px;
+    }
+
+    .promos{
+        align-items: center;
+    }
+    .productos{
+        flex-direction: column;
+    }
+    .producto{
+        width: 100%;
+        margin-top: 10px;
+        margin-bottom: 0;
+    }
+
+    footer{
+        flex-direction: column;
+    }
+    .footer-column{
+        width: 100%;
+    }
+    
+}

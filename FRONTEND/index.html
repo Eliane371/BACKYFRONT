@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<head>
+    <title>Mi primer proyecto Fullstack</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css" type="text/css">
+    <script src="index.js"></script>
+</head>
+<body>
+    <header>
+        <div class="marca">
+            <img src="images/logo.png" width="120" height="120"/>
+            <h1 class="nombre">BeachMotion</h1>
+        </div>
+        <navbar> <!-- acá va el menú principal -->
+            <ul class="menu-lista">
+                <li>
+                    <a href="#"><button class="menu-boton" onclick="mostrarMensaje()">Home</button></a>
+                </li>
+                <li>
+                    <a href="#"><button class="menu-boton">Producto</button></a>
+                </li>
+                <li>
+                    <a href="#"><button class="menu-boton">Reserva</button></a>
+                </li>
+                <li>
+                    <a href="#"><button class="menu-boton">Nosotros</button></a>
+                </li>
+            </ul>
+        </navbar> 
+    </header>
+    <div class="container"> <!-- contenedor principal -->        
+        <div class="promos"> <!-- contenido principal --> 
+            <h2>Productos que ofrecemos</h2>
+            <div class="productos" id="productos">    
+            <!-- Crear una grilla de productos con imagen thumb, nombre, detalle y precio y boton ver más. -->
+             <!--  
+                <div class="producto">
+                    <img src="images/jetski.png" width="150"/>
+                    <h3 id="combo1">JetSky</h3>
+                    <p>Alquila un JetSky y siente la adrenalina mientras navegas por las olas, con capacidad para dos personas.</p>
+                    <h2 class="precio">Precio:$100</h2>
+                    <button class="ordenar" onclick='Ordenar("combo1")'>ORDENAR</button>
+                </div>
+                <div class="producto">
+                    <img src="images/cuatriciclo.jpg" width="250"/>
+                    <h3 id="combo2">Cuatriciclo</h3>
+                    <p>Explora la costa en un cuatriciclo, ideal para aventuras en grupo.</p>
+                    <h2 class="precio">Precio:$100</h2>
+                    <button class="ordenar" onclick='Ordenar("combo2")'>ORDENAR</button>
+                </div>
+                <div class="producto">
+                    <img src="images/buceo.jpg" width="200"/>
+                    <h3 id="combo3">Equipo de Buceo</h3>
+                    <p>Sumérgete en la belleza del océano con nuestro equipo de buceo de alta calidad.</p>
+                    <h2 class="precio">Precio:$50</h2>
+                    <button class="ordenar" onclick='Ordenar("combo3")'>ORDENAR</button>
+                </div>
+                <div class="producto">
+                    <img src="images/tablasurfnino.jpg" width="150"/>
+                    <h3 id="combo4">Tablas Surf (Niño)</h3>
+                    <p>Disfruta de las olas en las dos versiones de tabla que ofrecemos para todas las edades.</p>
+                    <h2 class="precio">Precio:$15</h2>
+                    <button class="ordenar" onclick='Ordenar("combo4")'>ORDENAR</button>
+                </div>
+                <div class="producto">
+                    <img src="images/tablasurfadulto.jpg" width="150"/>
+                    <h3 id="combo5">Tablas Surf (Adulto)</h3>
+                    <p>Disfruta de las olas en las dos versiones de tabla que ofrecemos para todas las edades.</p>
+                    <h2 class="precio">Precio:$25</h2>
+                    <button class="ordenar" onclick='Ordenar("combo5")'>ORDENAR</button>
+                </div>
+                -->
+            </div> <!-- productos -->
+        </div>
+    </div> <!-- container -->
+    <footer>
+        <!-- crear tres columnas de contenido, una para info de contacto, para redes sociales y para el mapa. -->
+        <div class="footer-column">
+            <h3>Seguinos en las redes</h3>
+            <ul class="social-media">
+                <li class="social-item"><img class="social-logo" src="images/ig.png" alt="logo instagram"></li>
+                <li class="social-item"><img class="social-logo" src="images/tiktok.png" alt="logo tiktok"></li>
+                <li class="social-item"><img class="social-logo" src="images/whatsapp.png" alt="logo whatsapp"></li>
+            </ul>
+        </div>
+        <div class="footer-column">
+        <p ></p>
+        </div>
+        <div class="footer-column">
+        <p>Alquilar con nosotros te brinda múltiples beneficios que mejoran tu experiencia. Desde descuentos hasta flexibilidad en cancelaciones, estamos aquí para ti.</p>
+        </div>    
+    </footer>
+</body>
+</html>
