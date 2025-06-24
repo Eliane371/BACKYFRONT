@@ -95,14 +95,14 @@ const updateProfile = async (req, res) => {
 
     try {
 
-        const { userId, name, phone, address, dateb, gender } = req.body
+        const { userId, name, phone, dateb, gender } = req.body
         const imageFile = req.file
 
         if (!name || !phone || !dateb || !gender) {
             return res.json({ success: false, message: "Datos Faltantes" })
         }
 
-        await userModel.findByIdAndUpdate(userId, { name, phone, address: JSON.parse(address), dateb, gender })
+        await userModel.findByIdAndUpdate(userId, { name, phone, dateb, gender })
 
         if (imageFile) {
 
@@ -127,7 +127,7 @@ const bookAppointment = async (req, res) => {
     try {
 
         const { userId, p_Id, slotDate, slotTime } = req.body
-        const prodData = await productModel.findById(p_Id).select("-password")
+        const productData = await productModel.findById(p_Id).select("-password")
 
         if (!prodData.available) {
             return res.json({ success: false, message: 'No disponible' })
@@ -150,13 +150,13 @@ const bookAppointment = async (req, res) => {
 
         const userData = await userModel.findById(userId).select("-password")
 
-        delete prodData.slots_booked
+        delete productData.slots_booked
 
         const appointmentData = {
             userId,
             p_Id,
             userData,
-            prodData,
+            productData,
             amount: prodData.fees,
             slotTime,
             slotDate,
@@ -167,7 +167,7 @@ const bookAppointment = async (req, res) => {
         await newAppointment.save()
 
         // guardar nuevos slots
-        await doctorModel.findByIdAndUpdate(p_Id, { slots_booked })
+        await productModel.findByIdAndUpdate(p_Id, { slots_booked })
 
         res.json({ success: true, message: 'Reserva Exitosa' })
 
@@ -195,9 +195,9 @@ const cancelAppointment = async (req, res) => {
         // liberar 
         const { p_Id, slotDate, slotTime } = appointmentData
 
-        const prodData = await productModel.findById(docId)
+        const productData = await productModel.findById(p_Id)
 
-        let slots_booked = prodData.slots_booked
+        let slots_booked = productData.slots_booked
 
         slots_booked[slotDate] = slots_booked[slotDate].filter(e => e !== slotTime)
 

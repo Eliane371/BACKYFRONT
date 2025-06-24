@@ -10,11 +10,12 @@ const authAdmin = async (req, res, next) => {
         const token_decode = jwt.verify(aToken, process.env.JWT_SECRET)
         if (token_decode !== process.env.ADMIN_EMAIL + process.env.ADMIN_PASSWORD) {
             return res.json({ success: false, message: 'No Autorizado, intentalo de nuevo' })
+        
         }
-        next()
+        next();
     } catch (error) {
         console.log(error)
-        res.json({ success: false, message: error.message })
+        res.json({ success: false, message: 'No Autorizado, intentalo de nuevo' })
     }
 }
 

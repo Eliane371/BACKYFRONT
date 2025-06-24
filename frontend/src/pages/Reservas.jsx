@@ -1,12 +1,14 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { AppContext } from '../context/AppContext'
 import { assets } from '../assets/assets'
+import axios from 'axios'
+import { toast } from 'react-toastify'
 
 const Reservas = () => {
 
-    const { p_id } = useParams()
-    const { product, currencySymbol } = useContext(AppContext)
+    const { _id } = useParams()
+    const { product, currencySymbol,backendUrl, getProductData } = useContext(AppContext)
     const daysOfWeek = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT']
 
     const [prodInfo, setProdInfo] = useState(null)
@@ -14,10 +16,13 @@ const Reservas = () => {
     const [slotIndex, setSlotIndex] = useState(0)
     const [slotTime, setSlotTime] = useState('')
 
+
+    const navigate = useNavigate()
     const fetchProdInfo = async () => {
-        const prodInfo = product.find((prod) => prod.p_id === p_id)
-        setProdInfo(prodInfo)
-    }
+       const prodInfo = product.find((prod) => prod._id === _id);
+       console.log(prodInfo); // Verifica si se obtiene el producto
+       setProdInfo(prodInfo);
+   }
 
     const getAvailableSlots = async () => {
         setProdSlots([])
@@ -48,22 +53,39 @@ const Reservas = () => {
 
             while (currentDate < endTime) {
                 let formattedTime = currentDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+                let day = currentDate.getDate()
+                let month = currentDate.getMonth() + 1
+                let year = currentDate.getFullYear()
 
-                // Add slot to array
-                timeSlots.push({
-                    datetime: new Date(currentDate),
-                    time: formattedTime
-                })
+                const slotDate = day + "_" + month + "_" + year
+                const slotTime = formattedTime
+
+                const isSlotAvailable = prodInfo.slots_booked[slotDate] && prodInfo.slots_booked[slotDate].includes(slotTime) ? false : true
+
+                if (isSlotAvailable) {
+
+                    // Add slot to array
+                    timeSlots.push({
+                        datetime: new Date(currentDate),
+                        time: formattedTime
+                    })
+                }
 
                 // Increment current time by 30 minutes
                 currentDate.setMinutes(currentDate.getMinutes() + 30)
             }
 
-            setProdSlots(prev => ([...prev, timeSlots]))
+            setProdSlots(prev => ([...prev, timeSlots]));
+            console.log(prodSlots); // Verifica si se están generando los slots
         }
     }
 
     const bookAppointment = async () => {
+        
+        if (!token) {
+            toast.warning('Login to book appointment')
+            return navigate('/login')
+        }
         const date = prodSlots[slotIndex][0].datetime
 
         let day = date.getDate()
@@ -72,13 +94,30 @@ const Reservas = () => {
 
         const slotDate = `${day}_${month}_${year}`
         console.log(slotDate, slotTime)
+
+        try {
+
+            const { data } = await axios.post(backendUrl + '/api/user/book-appointment', { _id, slotDate, slotTime }, { headers: { token } })
+            if (data.success) {
+                toast.success(data.message)
+                getProductData()
+                navigate('/my-reservas')
+            } else {
+                toast.error(data.message)
+            }
+
+        } catch (error) {
+            console.log(error)
+            toast.error(error.message)
+        }
+
     }
 
     useEffect(() => {
         if (product.length > 0) {
             fetchProdInfo()
         }
-    }, [product, p_id])
+    }, [product, _id])
 
     useEffect(() => {
         if (prodInfo) {
@@ -144,8 +183,7 @@ const Reservas = () => {
 
                 <button
                     onClick={bookAppointment}
-                    className='bg-primary text-white text-sm font-light px-14 py-3 rounded-full my-6'
-                >
+                    className='bg-primary text-white text-sm font-light px-14 py-3 rounded-full my-6'>
                     Reserve un cupo
                 </button>
             </div>

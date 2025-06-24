@@ -12,6 +12,7 @@ const loginAdmin = async (req, res) => {
         if (email === process.env.ADMIN_EMAIL && password === process.env.ADMIN_PASSWORD) {
             const token = jwt.sign(email + password, process.env.JWT_SECRET)
             res.json({ success: true, token })
+            
         } else {
             res.json({ success: false, message: "Credenciales Invalidas" })
         }
@@ -67,7 +68,7 @@ const addProduct = async (req, res) => {
         //const imageUpload = await cloudinary.uploader.upload(imageFile.path, { resource_type: "image" })
         //const imageUrl = imageUpload.secure_url
 
-        const categoryData = {
+        const productData = {
             name,
             //image: imageUrl,
             about,
@@ -77,7 +78,7 @@ const addProduct = async (req, res) => {
             date: Date.now()
         }
 
-        const newProducto = new productModel(categoryData)
+        const newProducto = new productModel(productData)
         await newProducto.save()
         res.json({ success: true, message: 'Producto Agregado' })
     }catch(error){
@@ -103,14 +104,14 @@ const allProduct = async (req, res) => {
 const adminDashboard = async (req, res) => {
     try {
 
-        const producto = await productModel.find({})
+        const product = await productModel.find({})
         const user = await userModel.find({})
         const appointments = await appointmentModel.find({})
 
         const dashData = {
-            producto: producto.length,
+            product: product.length,
             appointments: appointments.length,
-            usuarios: user.length,
+            user: user.length,
             latestAppointments: appointments.reverse()
         }
 

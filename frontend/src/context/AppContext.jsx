@@ -1,5 +1,4 @@
 import { createContext, useEffect, useState} from "react";
-import { product } from "../assets/assets";
 import { toast } from "react-toastify";
 import axios from "axios"
 
@@ -8,6 +7,7 @@ const AppContextProvider = (props) => {
 
     const currencySymbol = '$'
     const backendUrl = import.meta.env.VITE_BACKEND_URL
+    
     const [product, setProduct] = useState([])
     const [token, setToken] = useState(localStorage.getItem('token') ? localStorage.getItem('token') : '')
     const [userData, setUserData] = useState(false)
@@ -16,7 +16,7 @@ const AppContextProvider = (props) => {
 
         try {
 
-            const { data } = await axios.get(backendUrl + '/api/product/list')
+            const { data } = await axios.get(backendUrl + '/api/products/list')
             if (data.success) {
                 setProduct(data.product)
             } else {

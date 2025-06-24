@@ -1,11 +1,19 @@
-import React, { useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
+import { AppContext } from '../context/AppContext'
+import axios from 'axios'
+import { toast } from 'react-toastify'
 import { assets } from '../assets/assets'
 
 const MyProfile = () => {
 
     const [isEdit, setIsEdit] = useState(false)
 
-    const [userData, setUserData] = useState({
+    const [image, setImage] = useState(false)
+
+    const { token, backendUrl, userData, setUserData, loadUserProfileData } = useContext(AppContext)
+    
+    
+    /*const [userData, setUserData] = useState({
         name: "Richard James",
         image: assets.profile_pic,
         email: 'richardjames@gmail.com',
@@ -15,11 +23,53 @@ const MyProfile = () => {
         },
         gender: 'Masculino',
         dob: '2000-01-20'
-    })
+    })*/
+
+    // Function to update user profile data using API
+    const updateUserProfileData = async () => {
+
+        try {
+
+            const formData = new FormData();
+
+            formData.append('name', userData.name)
+            formData.append('phone', userData.phone)
+            formData.append('gender', userData.gender)
+            formData.append('dateb', userData.dob)
+
+            image && formData.append('image', image)
+
+            const { data } = await axios.post(backendUrl + '/api/user/update-profile', formData, { headers: { token } })
+
+            if (data.success) {
+                toast.success(data.message)
+                await loadUserProfileData()
+                setIsEdit(false)
+                setImage(false)
+            } else {
+                toast.error(data.message)
+            }
+
+        } catch (error) {
+            console.log(error)
+            toast.error(error.message)
+        }
+
+    }
+
 
     return (
         <div className='max-w-lg flex flex-col gap-2 text-sm'>
-            <img className='w-36 rounded' src={userData.image} alt="" />
+            {isEdit
+                ? <label htmlFor='image' >
+                    <div className='inline-block relative cursor-pointer'>
+                        <img className='w-36 rounded opacity-75' src={image ? URL.createObjectURL(image) : userData.image} alt="" />
+                        <img className='w-10 absolute bottom-12 right-12' src={image ? '' : assets.upload_icon} alt="" />
+                    </div>
+                    <input onChange={(e) => setImage(e.target.files[0])} type="file" id="image" hidden />
+                </label>
+                : <img className='w-36 rounded' src={userData.image} alt="" />
+            }
 
             {isEdit
                 ? <input className='bg-gray-50 text-3xl font-medium max-w-60 mt-4' type="text" onChange={(e) => setUserData(prev => ({ ...prev, name: e.target.value }))} value={userData.name} />
@@ -36,14 +86,6 @@ const MyProfile = () => {
                     {isEdit
                         ? <input className='bg-gray-100 max-w-52' type="text" onChange={(e) => setUserData(prev => ({ ...prev, phone: e.target.value }))} value={userData.phone} />
                         : <p className='text-blue-400'>{userData.phone}</p>}
-                    <p className='font-medium'>Direccion:</p>
-                    {isEdit
-                        ? <p>
-                            <input className='bg-gray-50' type="text" onChange={(e) => setUserData(prev => ({ ...prev, address: { ...prev.address, line1: e.target.value } }))} value={userData.address.line1} />
-                            <br />
-                            <input className='bg-gray-50' type="text" onChange={(e) => setUserData(prev => ({ ...prev, address: { ...prev.address, line2: e.target.value } }))} value={userData.address.line2} /></p>
-                        : <p className='text-gray-500'>{userData.address.line1} <br /> {userData.address.line2}</p>
-                    }
                 </div>
             </div>
             <div>
@@ -56,10 +98,10 @@ const MyProfile = () => {
                             <option value="Female">Femenino</option>
                         </select>
                         : <p className='text-gray-400'>{userData.gender}</p>}
-                    <p className='font-medium'>Cumpleanos:</p>
+                    <p className='font-medium'>Fecha de nacimiento:</p>
                     {isEdit
-                        ? <input className='max-w-28 bg-gray-100' type='date' onChange={(e) => setUserData(prev => ({ ...prev, dob: e.target.value }))} value={userData.dob} />
-                        : <p className='text-gray-400'>{userData.dob}</p>}
+                        ? <input className='max-w-28 bg-gray-100' type='date' onChange={(e) => setUserData(prev => ({ ...prev, dateb: e.target.value }))} value={userData.dateb} />
+                        : <p className='text-gray-400'>{userData.dateb}</p>}
                 </div>
             </div>
             <div className='mt-10'>

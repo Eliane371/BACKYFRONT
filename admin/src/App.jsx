@@ -11,9 +11,7 @@ import AllAppointments from './pages/Admin/AllAppointments';
 import AddProduct from './pages/Admin/AddProduct';
 import ListaProducts from './pages/Admin/ListaProducts';
 import Login from './pages/Login';
-//import DoctorAppointments from './pages/Doctor/DoctorAppointments';
-//import DoctorDashboard from './pages/Doctor/DoctorDashboard';
-//import DoctorProfile from './pages/Doctor/DoctorProfile';
+
 const App = () => {
 
   //const { dToken } = useContext(ProductContext)
@@ -27,17 +25,18 @@ const App = () => {
         <Sidebar />
         <Routes>
           <Route path='/' element={<></>} />
-          <Route path='/admin-dashboard' element={<Dashboard />} />
-          <Route path='/all-appointments' element={<AllAppointments />} />
+          <Route path='/dashboard' element={<Dashboard />} />
+          <Route path='/appointments' element={<AllAppointments />} />
           <Route path='/add-product' element={<AddProduct />} />
-          <Route path='/product-list' element={<ListaProducts />} />
+          <Route path='/all-products' element={<ListaProducts />} />
         </Routes>
       </div>
     </div>
   ):(
     <>
-      <Login/>
       <ToastContainer />
+      <Login/>
+      
     </>
   )
   

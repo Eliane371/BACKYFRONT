@@ -7,8 +7,8 @@ import appointmentModel from "../models/appointmentModel.js";
 const appointmentsProd = async (req, res) => {
     try {
 
-        const { p_Id } = req.body
-        const appointments = await appointmentModel.find({ p_Id })
+        const { _id } = req.body
+        const appointments = await appointmentModel.find({ _id })
 
         res.json({ success: true, appointments })
 
@@ -22,10 +22,10 @@ const appointmentsProd = async (req, res) => {
 const appointmentCancel = async (req, res) => {
     try {
 
-        const { p_Id, appointmentId } = req.body
+        const { _id, appointmentId } = req.body
 
         const appointmentData = await appointmentModel.findById(appointmentId)
-        if (appointmentData && appointmentData.p_Id === p_Id) {
+        if (appointmentData && appointmentData._id === _id) {
             await appointmentModel.findByIdAndUpdate(appointmentId, { cancelled: true })
             return res.json({ success: true, message: 'Reserva Cancelada' })
         }
@@ -43,10 +43,10 @@ const appointmentCancel = async (req, res) => {
 const appointmentComplete = async (req, res) => {
     try {
 
-        const { p_Id, appointmentId } = req.body
+        const { _id, appointmentId } = req.body
 
         const appointmentData = await appointmentModel.findById(appointmentId)
-        if (appointmentData && appointmentData.docId === p_Id) {
+        if (appointmentData && appointmentData._id === _id) {
             await appointmentModel.findByIdAndUpdate(appointmentId, { isCompleted: true })
             return res.json({ success: true, message: 'Reserva Completada' })
         }
@@ -78,10 +78,10 @@ const productList = async (req, res) => {
 const changeAvailablity = async (req, res) => {
     try {
 
-        const { p_Id } = req.body
+        const { _id } = req.body
 
-        const prodData = await productModel.findById(p_Id)
-        await productModel.findByIdAndUpdate(p_Id, { available: !prodData.available })
+        const productData = await productModel.findById(_id)
+        await productModel.findByIdAndUpdate(_id, { available: !productData.available })
         res.json({ success: true, message: 'Disponibilidad cambiada' })
 
     } catch (error) {
@@ -94,8 +94,8 @@ const changeAvailablity = async (req, res) => {
 const productProfile = async (req, res) => {
     try {
 
-        const { p_Id } = req.body
-        const profileData = await productModel.findById(p_Id).select('-description')
+        const { _id } = req.body
+        const profileData = await productModel.findById(_id).select('-description')
 
         res.json({ success: true, profileData })
 
@@ -109,9 +109,9 @@ const productProfile = async (req, res) => {
 const updateProdProfile = async (req, res) => {
     try {
 
-        const { p_Id, fees, available } = req.body
+        const { _id, fees, available } = req.body
 
-        await productModel.findByIdAndUpdate(p_Id, { fees, available })
+        await productModel.findByIdAndUpdate(_id, { fees, available })
 
         res.json({ success: true, message: 'Informacion actualizada' })
 
@@ -125,9 +125,9 @@ const updateProdProfile = async (req, res) => {
 const productDashboard = async (req, res) => {
     try {
 
-        const { p_Id } = req.body
+        const { _id } = req.body
 
-        const appointments = await appointmentModel.find({ p_Id })
+        const appointments = await appointmentModel.find({ _id })
 
         let earnings = 0
 
@@ -137,11 +137,11 @@ const productDashboard = async (req, res) => {
             }
         })
 
-        let usuario = []
+        let user = []
 
         appointments.map((item) => {
-            if (!usuario.includes(item.userId)) {
-                usuario.push(item.userId)
+            if (!user.includes(item.userId)) {
+                user.push(item.userId)
             }
         })
 
@@ -150,7 +150,7 @@ const productDashboard = async (req, res) => {
         const dashData = {
             earnings,
             appointments: appointments.length,
-            usuario: usuario.length,
+            user: user.length,
             latestAppointments: appointments.reverse()
         }
 
