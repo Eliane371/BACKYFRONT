@@ -76,8 +76,11 @@ const MisReservas = () => {
                         </div>
                         <div></div>
                         <div className='flex flex-col gap-2 justify-end text-sm text-center'>
-                            <button className='text-sm text-stone-500 text-center sm:min-w-48 py-2 border rounded hover:bg-primary hover:text-white transition-all duration-300'>Paga Online</button>
-                            <button className='text-sm text-stone-500 text-center sm:min-w-48 py-2 border rounded hover:bg-red-600 hover:text-white transition-all duration-300'>Cancelar Reserva</button>
+                            
+
+                            {item.isCompleted && <button className='sm:min-w-48 py-2 border border-green-500 rounded text-green-500'>Completed</button>}
+
+                            {!item.cancelled && !item.isCompleted && <button onClick={() => cancelAppointment(item._id)} className='text-[#696969] sm:min-w-48 py-2 border rounded hover:bg-red-600 hover:text-white transition-all duration-300'>Cancel appointment</button>}
                         </div>
                     </div>
                 ))}
@@ -87,3 +90,6 @@ const MisReservas = () => {
 }
 
 export default MisReservas
+
+/*<button className='text-sm text-stone-500 text-center sm:min-w-48 py-2 border rounded hover:bg-primary hover:text-white transition-all duration-300'>Paga Online</button>
+                            <button className='text-sm text-stone-500 text-center sm:min-w-48 py-2 border rounded hover:bg-red-600 hover:text-white transition-all duration-300'>Cancelar Reserva</button>*/

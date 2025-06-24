@@ -8,16 +8,17 @@ import { toast } from 'react-toastify'
 const Reservas = () => {
 
     const { _id } = useParams()
-    const { product, currencySymbol,backendUrl, getProductData } = useContext(AppContext)
+    const { product, currencySymbol,backendUrl,token,getProductData } = useContext(AppContext)
     const daysOfWeek = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT']
 
-    const [prodInfo, setProdInfo] = useState(null)
+    const [prodInfo, setProdInfo] = useState(false)
     const [prodSlots, setProdSlots] = useState([])
     const [slotIndex, setSlotIndex] = useState(0)
     const [slotTime, setSlotTime] = useState('')
 
 
     const navigate = useNavigate()
+
     const fetchProdInfo = async () => {
        const prodInfo = product.find((prod) => prod._id === _id);
        console.log(prodInfo); // Verifica si se obtiene el producto
@@ -92,8 +93,9 @@ const Reservas = () => {
         let month = date.getMonth() + 1
         let year = date.getFullYear()
 
-        const slotDate = `${day}_${month}_${year}`
-        console.log(slotDate, slotTime)
+        const slotDate = day + "_" + month + "_" + year
+        //const slotDate = `${day}_${month}_${year}`
+        //console.log(slotDate, slotTime)
 
         try {
 

@@ -38,8 +38,8 @@ const registerUser = async (req, res) => {
         }
 
         const newUser = new userModel(userData)
-        const user = await newUser.save()
-        const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET)
+        const users = await newUser.save()
+        const token = jwt.sign({ id: users._id }, process.env.JWT_SECRET)
 
         res.json({ success: true, token })
 
@@ -49,21 +49,22 @@ const registerUser = async (req, res) => {
     }
 }
 
+
 // API para login de usuario
 const loginUser = async (req, res) => {
 
     try {
         const { email, password } = req.body;
-        const user = await userModel.findOne({ email })
+        const users = await userModel.findOne({ email })
 
-        if (!user) {
+        if (!users) {
             return res.json({ success: false, message: "Usuario no existe" })
         }
 
         const isMatch = await bcrypt.compare(password, user.password)
 
         if (isMatch) {
-            const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET)
+            const token = jwt.sign({ id: users._id }, process.env.JWT_SECRET)
             res.json({ success: true, token })
         }
         else {
@@ -129,11 +130,11 @@ const bookAppointment = async (req, res) => {
         const { userId, p_Id, slotDate, slotTime } = req.body
         const productData = await productModel.findById(p_Id).select("-password")
 
-        if (!prodData.available) {
+        if (!productData.available) {
             return res.json({ success: false, message: 'No disponible' })
         }
 
-        let slots_booked = prodData.slots_booked
+        let slots_booked = productData.slots_booked
 
         // revisar disponibilidad 
         if (slots_booked[slotDate]) {
@@ -157,7 +158,7 @@ const bookAppointment = async (req, res) => {
             p_Id,
             userData,
             productData,
-            amount: prodData.fees,
+            amount: productData.fees,
             slotTime,
             slotDate,
             date: Date.now()

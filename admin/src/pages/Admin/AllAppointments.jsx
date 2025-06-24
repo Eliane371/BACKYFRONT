@@ -37,7 +37,7 @@ const AllAppointments = () => {
             </div>
             <p>{slotDateFormat(item.slotDate)}, {item.slotTime}</p>
             <div className='flex items-center gap-2'>
-              <img src={item.prodData.image} className='w-8 rounded-full bg-gray-200' alt="" /> <p>{item.prodData.name}</p>
+              <img src={item.productData.image} className='w-8 rounded-full bg-gray-200' alt="" /> <p>{item.productData.name}</p>
             </div>
             <p>{currency}{item.amount}</p>
             {item.cancelled ? <p className='text-red-400 text-xs font-medium'>Cancelado</p> : item.isCompleted ? <p className='text-green-500 text-xs font-medium'>Completado</p> : <img onClick={() => cancelAppointment(item._id)} className='w-10 cursor-pointer' src={assets.cancel_icon} alt="" />}

@@ -107,7 +107,7 @@ const MyProfile = () => {
             <div className='mt-10'>
                 {
                     isEdit
-                        ? <button onClick={() => setIsEdit(false)} className='border border-primary px-8 py-2 rounded-full hover:bg-primary hover:text-white transition-all'>Guardar Informacion</button>
+                        ? <button onClick={updateUserProfileData} className='border border-primary px-8 py-2 rounded-full hover:bg-primary hover:text-white transition-all'>Guardar Informacion</button>
                         : <button onClick={() => setIsEdit(true)} className='border border-primary px-8 py-2 rounded-full hover:bg-primary hover:text-white transition-all'>Editar</button>
                 }
             </div>

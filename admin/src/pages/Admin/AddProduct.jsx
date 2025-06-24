@@ -3,7 +3,7 @@ import { assets } from '../../assets/assets'
 import { toast } from 'react-toastify'
 import axios from 'axios'
 import { AdminContext } from '../../context/AdminContext'
-import { AppContext } from '../../context/AppContext'
+
 
 const AddProduct = () => {
 
@@ -12,9 +12,10 @@ const AddProduct = () => {
     const [fees, setFees] = useState('')
     const [about, setAbout] = useState('')
     const [category, setCategory] = useState('')
+    const [maxPeople, setmaxPeople] = useState('')
 
 
-    //const { backendUrl } = useContext(AppContext)
+    
     const { aToken,backendUrl } = useContext(AdminContext)
 
     const onSubmitHandler = async (event) => {
@@ -33,6 +34,7 @@ const AddProduct = () => {
             formData.append('fees', Number(fees))
             formData.append('about', about)
             formData.append('category', category)
+            formData.append('maxPeople', maxPeople)
 
 
             // console log formdata            
@@ -48,6 +50,8 @@ const AddProduct = () => {
                 setAbout('')
                 setFees('')
                 setCategory('')
+                setmaxPeople('')
+
             } else {
                 toast.error(data.message)
             }
@@ -70,7 +74,7 @@ const AddProduct = () => {
                         <img className='w-16 bg-gray-100 rounded-full cursor-pointer' src={prodImg ? URL.createObjectURL(prodImg) : assets.upload_area} alt="" />
                     </label>
                     <input onChange={(e) => setProdImg(e.target.files[0])} type="file" id="prod-img" hidden />
-                    <p>Upload product <br /> picture</p>
+                    <p>Sube Imagen <br /> del producto</p>
                 </div>
 
                 <div className='flex flex-col lg:flex-row items-start gap-10 text-gray-600'>
@@ -78,13 +82,18 @@ const AddProduct = () => {
                     <div className='w-full lg:flex-1 flex flex-col gap-4'>
 
                         <div className='flex-1 flex flex-col gap-1'>
-                            <p>Product name</p>
+                            <p>Nombre del producto</p>
                             <input onChange={e => setName(e.target.value)} value={name} className='border rounded px-3 py-2' type="text" placeholder='Name' required />
                         </div>
 
                         <div className='flex-1 flex flex-col gap-1'>
                             <p>Fees</p>
                             <input onChange={e => setFees(e.target.value)} value={fees} className='border rounded px-3 py-2' type="number" placeholder='Product fees' required />
+                        </div>
+
+                        <div className='flex-1 flex flex-col gap-1'>
+                            <p>Max Personas</p>
+                            <input onChange={e => setmaxPeople(e.target.value)} value={maxPeople} className='border rounded px-3 py-2' type="number" placeholder='Max Personas producto' required />
                         </div>
 
                     </div>
@@ -98,6 +107,7 @@ const AddProduct = () => {
                                 <option value="Cuatriciclo">Cuatriciclo</option>
                                 <option value="Equipo de Buceo">Equipo de Buceo</option>
                                 <option value="Tabla de surf">Tabla de surf</option>
+                                <option value="Seguridad">Equipo de Seguridad</option>
                             </select>
                         </div>
 
