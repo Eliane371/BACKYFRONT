@@ -1,4 +1,4 @@
-/*import jwt from 'jsonwebtoken'
+import jwt from 'jsonwebtoken'
 
 // user authentication middleware
 const authUser = async (req, res, next) => {
@@ -18,4 +18,3 @@ const authUser = async (req, res, next) => {
 
 export default authUser;
 
-*/

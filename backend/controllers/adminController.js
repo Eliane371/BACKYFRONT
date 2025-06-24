@@ -1,7 +1,6 @@
-/*import jwt from "jsonwebtoken";
+import jwt from "jsonwebtoken";
 import appointmentModel from "../models/appointmentModel.js";
-import productModel from "../models/productModel";
-import { v2 as cloudinary } from "cloudinary";
+import productModel from "../models/productModel.js";
 import userModel from "../models/userModel.js";
 
 // API for admin login
@@ -58,22 +57,23 @@ const appointmentCancel = async (req, res) => {
 const addProduct = async (req, res) => {
     try{
         
-        const{name, description, category, fees} = req.body
-        const imageFile = req.file
+        const{name, about, category, fees,maxPeople} = req.body
+        //const imageFile = req.file
         // Revisar si toda la informacion esta
-        if (!name || !description || !category || !fees || !imageFile) {
+        if (!name || !about || !category || !fees || !maxPeople) {
             return res.json({ success: false, message: "Faltan Datos" })
         }
         // Agregar imagen a cloudinary
-        const imageUpload = await cloudinary.uploader.upload(imageFile.path, { resource_type: "image" })
-        const imageUrl = imageUpload.secure_url
+        //const imageUpload = await cloudinary.uploader.upload(imageFile.path, { resource_type: "image" })
+        //const imageUrl = imageUpload.secure_url
 
         const categoryData = {
             name,
-            image: imageUrl,
-            description,
+            //image: imageUrl,
+            about,
             category,
             fees,
+            maxPeople,
             date: Date.now()
         }
 
@@ -90,7 +90,7 @@ const addProduct = async (req, res) => {
 const allProduct = async (req, res) => {
     try {
 
-        const product = await productModel.find({}).select('-name')
+        const product = await productModel.find({})
         res.json({ success: true, product })
 
     } catch (error) {
@@ -131,4 +131,3 @@ export {
     allProduct,
     adminDashboard
 }
-*/

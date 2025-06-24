@@ -1,6 +1,6 @@
-/*import express from 'express';
-import { productList, changeAvailablity, productDashboard, productProfile } from '../controllers/productController.js';
-import authProduct from '../middleware/authProduct.js';
+import express from 'express';
+import { productList, changeAvailablity, productDashboard, productProfile,appointmentCancel, appointmentsProd, appointmentComplete,updateProdProfile } from '../controllers/productController.js';
+import authProduct from '../middlewares/authProduct.js';
 const productRouter = express.Router();
 
 
@@ -13,4 +13,4 @@ productRouter.get("/dashboard", authProduct, productDashboard)
 productRouter.get("/profile", authProduct, productProfile)
 productRouter.post("/update-profile", authProduct, updateProdProfile)
 
-export default productRouter;*/
+export default productRouter;

@@ -71,7 +71,9 @@ export const product = [
         image: jetsky,
         about: 'Alquila un JetSky y siente la adrenalina mientras navegas por las olas, con capacidad para dos personas.',
         fees: 100,
-        category: 'Jetsky'
+        category: 'Jetsky',
+        maxPeople: 2,
+        requieresSafetyGear: 'Chaleco salvavidas, Casco',
     },
     {
         p_id: 'cuatriciclo',
@@ -79,7 +81,9 @@ export const product = [
         image: cuatriciclo,
         about: 'Explora la costa en un cuatriciclo, ideal para aventuras en grupo.',
         fees: 100,
-        category: 'Cuatriciclo'
+        category: 'Cuatriciclo',
+        maxPeople: 2,
+        requieresSafetyGear: 'Chaleco salvavidas, Casco'
     },
     {
         p_id: 'buceo',
@@ -87,7 +91,9 @@ export const product = [
         image: buceo,
         about: 'Sumérgete en la belleza del océano con nuestro equipo de buceo de alta calidad.',
         fees: 50,
-        category: 'Equipo de Buceo'
+        category: 'Equipo de Buceo',
+        maxPeople: 1,
+        requieresSafetyGear: false
     },
     {
         p_id: 'surfN',
@@ -95,7 +101,9 @@ export const product = [
         image: surfN,
         about: 'Disfruta de las olas en las dos versiones de tabla que ofrecemos para Niños.',
         fees: 15,
-        category: 'Tabla de surf'
+        category: 'Tabla de surf',
+        maxPeople: 1,
+        requieresSafetyGear: false
     },
     {
         p_id: 'surfA',
@@ -103,6 +111,8 @@ export const product = [
         image: surfA,
         about: 'Disfruta de las olas en las dos versiones de tabla que ofrecemos para Adultos.',
         fees: 25,
-        category: 'Tabla de surf'
+        category: 'Tabla de surf',
+        maxPeople: 1,
+        requieresSafetyGear: false
     },
 ]

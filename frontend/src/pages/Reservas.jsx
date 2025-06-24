@@ -128,6 +128,8 @@ const Reservas = () => {
 
                 <div className='flex items-center gap-3 w-full overflow-x-scroll mt-4'>
                     {prodSlots.length && prodSlots[slotIndex].map((item, index) => (
+                        
+                        
                         <p
                             onClick={() => setSlotTime(item.time)}
                             key={index}

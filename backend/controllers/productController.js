@@ -1,5 +1,5 @@
 
-/*import productModel from "../models/productModel.js";
+import productModel from "../models/productModel.js";
 import appointmentModel from "../models/appointmentModel.js";
 
 
@@ -64,7 +64,7 @@ const appointmentComplete = async (req, res) => {
 const productList = async (req, res) => {
     try {
 
-        const product = await productModel.find({}).select(['-name', '-descrption'])
+        const product = await productModel.find({})
         res.json({ success: true, product })
 
     } catch (error) {
@@ -171,4 +171,4 @@ export {
     appointmentComplete,
     updateProdProfile,
     productDashboard
-}*/
+}

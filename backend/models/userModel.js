@@ -1,4 +1,4 @@
-/*import mongoose from "mongoose";
+import mongoose from "mongoose";
 
 const userSchema = new mongoose.Schema({
     name:{type:String, required:true},
@@ -11,7 +11,6 @@ const userSchema = new mongoose.Schema({
     dateb:{type:String,default:"Not Selected"}
 })
 
-const userModel = mongoose.model.user || mongoose.model('user', productSchema)
+const userModel = mongoose.models.user || mongoose.model('user', userSchema)
 
 export default userModel
-*/
